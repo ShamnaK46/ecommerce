@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display_order</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+<style>
+    body{
+        margin: 10px;
+        margin-left: 10px;
+    }
+    table{
+        width: 100%;
+        height: auto;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ordered By</th>
+            <th>Shipping Address</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Product name</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
+            <th>Order Status</th>
+            <th>Ordered At</th>
+            <th>Cart ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for order in orders%}
+        <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.ordered_by}}</td>
+            <td>{{order.shipping_address}}</td>
+            <td>{{order.mobile}}</td>
+            <td>{{order.email}}</td>
+            <td>{{cp.product.name}}</td>
+            <td>{{order.total}}</td>
+            <td>{{cp.payment_method}}</td>
+             <td>{{order.order_status}}</td>
+            <td>{{order.created_at}}</td>
+            <td>{{order.cart_id}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+<body>
+</body>
+
+</html>

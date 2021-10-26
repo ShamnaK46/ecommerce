@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<title>SignUp</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+		integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		body {
+			color: rgb(255, 255, 255);
+			background: #fdfdfd;
+			font-family: 'Roboto', sans-serif;
+		}
+
+		.form-control {
+			height: 41px;
+			background: #f2f2f2;
+			box-shadow: none !important;
+			border: none;
+		}
+
+		.form-control:focus {
+			background: #e2e2e2;
+		}
+
+		.form-control,
+		.btn {
+			border-radius: 3px;
+		}
+
+		.signup-form {
+			width: 390px;
+			margin: 30px auto;
+		}
+
+		.signup-form form {
+			color: #999;
+			border-radius: 3px;
+			margin-bottom: 15px;
+			background: #fff;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			padding: 30px;
+		}
+
+		.signup-form h2 {
+			color: #333;
+			font-weight: bold;
+			margin-top: 0;
+		}
+
+		.signup-form hr {
+			margin: 0 -30px 20px;
+		}
+
+		.signup-form .form-group {
+			margin-bottom: 20px;
+		}
+
+		.signup-form input[type="checkbox"] {
+			margin-top: 3px;
+		}
+
+		.signup-form .row div:first-child {
+			padding-right: 10px;
+		}
+
+		.signup-form .row div:last-child {
+			padding-left: 10px;
+		}
+
+		.signup-form .btn {
+			font-size: 16px;
+			font-weight: bold;
+			background: #3598dc;
+			border: none;
+			min-width: 140px;
+		}
+
+		.signup-form .btn:hover,
+		.signup-form .btn:focus {
+			background: #2389cd !important;
+			outline: none;
+		}
+
+		.signup-form a {
+			color: #fff;
+			text-decoration: underline;
+		}
+
+		.signup-form a:hover {
+			text-decoration: none;
+		}
+
+		.signup-form form a {
+			color: #3598dc;
+			text-decoration: none;
+		}
+
+		.signup-form form a:hover {
+			text-decoration: underline;
+		}
+
+		.signup-form .hint-text {
+			padding-bottom: 15px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+
+    <section>
+        <div class="signup-form">
+            <form action="/examples/actions/confirmation.php" method="post">
+                {% csrf_token %}
+                <h2 style="text-align: center;">Register</h2>
+                <p></p>
+                <hr>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6"><input type="text" class="form-control first_name" name="first_name"
+                                placeholder="First Name" required="required">
+                            <p class="firsttest" style="font-weight: bold;color: blue;"></p>
+                        </div>
+    
+                        <div class="col-xs-6"><input type="text" class="form-control last_name" name="last_name"
+                                placeholder="Last Name" required="required"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control email" name="email" placeholder="Email" required="required">
+                    <p class="emailtest" style="font-weight: bold;color: blue;"></p>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control password" name="password" placeholder="Password"
+                        required="required">
+                    <p class="passtest" style="font-weight: bold;color: blue;"></p>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control confirm_password" name="confirm_password"
+                        placeholder="Confirm Password" required="required">
+                    <p class="conftest" style="font-weight: bold;color: blue;"></p>
+                </div>
+    
+                <div class="form-group" style="text-align: center;">
+                    <button type="button" style="background:black;" id="bttn" class="btn btn-primary btn-lg">Sign Up</button>
+                </div>
+                <div class="hint-text" style="color: blue;">Already have an account? <a href="login" style="color: blue;">Login here</a></div>
+            </div>
+            </form>
+    </section>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	function IsEmail(email) {
+		var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!regex.test(email)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	$('#bttn').click(() => {
+		$('.firsttest').text("")
+		$('.emailtest').text("")
+		$('.passtest').text("")
+		$('.conftest').text("")
+		var first_name = $('.first_name').val()
+		var last_name = $('.last_name').val()
+		var email = $('.email').val()
+		var password = $('.password').val()
+		var confirm_password = $('.confirm_password').val()
+		var data = {
+			'csrfmiddlewaretoken': '{{csrf_token}}',
+			'email': email,
+			'first_name': first_name,
+			'last_name': last_name,
+			'password': password
+		}
+		console.log(first_name)
+		if (first_name == '') {
+			$('.firsttest').text("First name field must not be empty")
+		} else if (email == '') {
+			$('.emailtest').text("Email field must not be empty")
+		} else if (password == '') {
+			$('.passtest').text("Password field must not be empty")
+		} else if (IsEmail(email) == false) {
+			$('.emailtest').text("Enter a valid Email")
+		} else if (confirm_password != password) {
+			$('.conftest').text("Mismatching passwords")
+		}
+		else {
+			$.ajax({
+				url: '/register',
+				method: 'POST',
+				data: data,
+				dataType: 'json',
+				success: (data) => {
+					if (data.success) {
+						window.location.replace('/login')
+					}
+				}
+			})
+		}
+	})
+</script>
+
+</html>

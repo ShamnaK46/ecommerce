@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>eCommerce | Create User</title>
+
+     <style>
+        body {
+    font-family: "Lato", sans-serif;
+}
+
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+
+}
+
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 40%;
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 80%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: #000 !important;
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+
+
+<div class="sidenav">
+         <div class="login-main-text">
+            <h2>Application<br> Create User</h2>
+            <p>Admin can create user from here to give access.</p>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="register-form">
+                   {% csrf_token %}
+                   <div class="form-group">
+                     <label>First Name</label>
+                     <input type="text" id="first_name"class="form-control" placeholder="First Name"  required="required">
+                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
+
+                   </div>
+                   <div class="form-group">
+                     <label>Last Name</label>
+                     <input type="text" id="last_name"class="form-control" placeholder="Last Name"  required="required">
+                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
+
+                   </div>
+                   <div class="form-group">
+                     <label>Email</label>
+                     <input type="email" id="email" class="form-control" placeholder="Email"  required="required">
+                       				<p class="emailtest" style="font-weight: bold;color: red;"></p>
+
+                  </div>
+                  <div class="form-group">
+                     <label>Password</label>
+                     <input type="password" id="password"class="form-control" placeholder="Password"  required="required">
+                  				<p class="passtest" style="font-weight: bold;color: red;"></p>
+
+                  </div>
+                    <div class="form-group">
+                     <label>Repeat Password</label>
+                     <input type="password" id="cpassword"class="form-control" placeholder="Repeat Password"  required="required">
+                 <p class="conftest" style="font-weight: bold;color: red;"></p>
+                  </div>
+
+                  <button type="submit" id="bttn" class="btn btn-black" id="createuser" >Create User</button>
+            </div>
+
+    <div class="d-flex justify-content-around align-items-center mb-4">
+                      <a href="adminpage"> Create later, Return to Home !!</a><br>
+                    </div>
+         </div>
+      </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	function IsEmail(email) {
+		var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!regex.test(email)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	$('#bttn').click(() => {
+		$('.firsttest').text("")
+		$('.emailtest').text("")
+		$('.passtest').text("")
+		$('.conftest').text("")
+		var first_name = $('#first_name').val()
+		var last_name = $('#last_name').val()
+		var email = $('#email').val()
+		var password = $('#password').val()
+		var confirm_password = $('#cpassword').val()
+		var data = {
+			'csrfmiddlewaretoken': '{{csrf_token}}',
+			'email': email,
+			'first_name': first_name,
+			'last_name': last_name,
+			'password': password
+		}
+		console.log(first_name)
+		if (first_name == '') {
+			$('.firsttest').text("name field must not be empty")
+		} else if (email == '') {
+			$('.emailtest').text("Email field must not be empty")
+		} else if (password == '') {
+			$('.passtest').text("Password field must not be empty")
+		} else if (IsEmail(email) == false) {
+			$('.emailtest').text("Enter a valid Email")
+		} else if (confirm_password != password) {
+			$('.conftest').text("Mismatching passwords")
+		}
+		else {
+			$.ajax({
+				url: '/create_user',
+				method: 'POST',
+				data: data,
+				dataType: 'json',
+				success: (data) => {
+					if (data.success) {
+						alert('user created')
+						window.location.replace('/display_user')
+					}
+				}
+			})
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eCommerce</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Float four columns side by side */
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+        }
+
+        /* Remove extra left and right margins, due to padding */
+        .row {
+            margin: 0 -5px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive columns */
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Style the counter cards */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 400px;
+            max-height: 400px;
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            padding: 2px;
+            background-color: aliceblue;
+        }
+
+        .price {
+            color: grey;
+            font-size: 22px;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: snow;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+
+        body {
+            background-color: whitesmoke;
+        }
+
+        .flex-container {
+               display: flex;
+               justify-content: space-around;
+           }
+
+        .show-cart li {
+            display: flex;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-img-top {
+            width: 200px;
+            height: 200px;
+            align-self: center;
+        }
+    </style>
+</head>
+<body style="background-color: white;">
+<div>
+    <form class="form-inline my-2 my-lg-0">
+
+        <nav class="navbar navbar-inverse">
+
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="home">YOKKI</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="home">Home</a></li>
+                </ul>
+
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li style="color: gainsboro"><a href="profile"> HELLO, {{ user.first_name }} </a></li>
+                        <li style="color: gainsboro"><a href="my-cart"> CART </a></li>
+                        <li><a href="logout"><span id="bttn" class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+                    {% else %}
+                        <li><a href="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                    {% endif %}
+            </div>
+    </form>
+
+</div>
+<div class="container" style="background-color: white">
+    <div class="column">
+        <div class="row">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                        <div class="card-block">
+                            <h4 class="card-title">{{ product.name }}</h4>
+                            <h4 class="warning"></h4>
+                            <p class="card-text">{{ product.price }}</p>
+                             <button class="moredetails" data-id="{{product.id}}" style="color: black;">More Details</button>
+                            <a href="add-to-cart-{{product.id}}" data-name="{{ product.name }}" data-price="{{ product.price }}"
+                               data-quantity="{{ product.quantity }}" data-id="{{ product.id }}"
+                               class="add-to-cart btn btn-primary">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('.moredetails').click(function (event) {
+        event.preventDefault();
+        var id = Number($(this).data('id'));
+
+        console.log(id)
+
+        var data = {
+            'csrfmiddlewaretoken': '{{csrf_token}}',
+            'id': id
+        }
+        $.ajax({
+                url: '/productdetails',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: (data) => {
+                    if (data.success) {
+                        window.location.replace('/productdetails')
+                    }
+                }
+            })
+
+    });
+    </script>
+</body>
+</html>

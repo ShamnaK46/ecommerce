@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>eCommerce | Delete User</title>
+
+     <style>
+        body {
+    font-family: "Lato", sans-serif;
+}
+
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+
+}
+
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 40%;
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 80%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: #000 !important;
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+
+
+<div class="sidenav">
+         <div class="login-main-text">
+            <h2>Application<br> Delete User</h2>
+            <p>Admin can delete user from here.</p>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="register-form">
+                   {% csrf_token %}
+                   <div class="form-group">
+                     <label>Username</label>
+                     <input type="text" id="first_name"class="form-control usrn" placeholder="username"  required="required">
+                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
+
+                   </div>
+
+                  <button type="submit" id="bttn" class="btn btn-black" id="deleteuser" >Delete User</button>
+            </div>
+
+    <div class="d-flex justify-content-around align-items-center mb-4">
+        <a href="display_user"> view users !!</a><br>
+    </div>
+         </div>
+      </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#bttn').click(() => {
+        var username = $('.usrn').val()
+        var data = {
+            'csrfmiddlewaretoken': '{{csrf_token}}',
+            'username': username,
+        }
+
+
+        $.ajax({
+            url: '/delete_user',
+            method: 'POST',
+            data: data,
+            dataType: 'json',
+            success: (data) => {
+                if (data.success) {
+                    alert('deleted user')
+                    window.location.replace('/display_user')
+                } else {
+                    alert('Unable to delete')
+                }
+            }
+        })
+
+    })
+</script>
+</html>

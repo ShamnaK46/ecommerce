@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to cart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Float four columns side by side */
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+        }
+
+        /* Remove extra left and right margins, due to padding */
+        .row {
+            margin: 0 -5px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive columns */
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Style the counter cards */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 300px;
+            height: 400px;
+            max-height: 400px;
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            padding: 2px;
+            background-color: aliceblue;
+        }
+
+        .price {
+            color: grey;
+            font-size: 22px;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: snow;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+
+        body {
+            background-color: whitesmoke;
+        }
+
+        .flex-container {
+               display: flex;
+               justify-content: space-around;
+           }
+
+        .show-cart li {
+            display: flex;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-img-top {
+            width: 200px;
+            height: 200px;
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Product added to Cart</h1>
+    <br>
+     <li style="color: gainsboro"><a href="/my-cart"> View Cart </a></li>
+    <li><a href="/home">click here to go back</a></li>
+
+    <!--<div class="container" style="background-color: white">
+    <div class="column">
+        <div class="row">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                        <div class="card-block">
+                            <h4 class="card-title">{{ product.name }}</h4>
+                            <h4 class="warning"></h4>
+                            <p class="card-text">{{ product.price }}</p>
+                            <a href="add-to-cart-{{product.id}}" data-name="{{ product.name }}" data-price="{{ product.price }}"
+                               data-quantity="{{ product.quantity }}" data-id="{{ product.id }}"
+                               class="add-to-cart btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div> -->
+</body>
+</html>
