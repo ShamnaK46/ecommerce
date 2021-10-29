@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import auth
 from .forms import *
 from .models import Product, Category
-from ecommerce.models import Order
+from ecommerce.models import Order, CartProduct
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
+from .decorators import *
 
 # Create your views here.
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login(request):
     if request.method == 'POST':
         username = request.POST['email']
@@ -45,18 +48,22 @@ def register(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    product = Product.objects.all()
+    return render(request, 'home.html', {'products': product})
 
 
+@login_required(login_url='/login')
 def logout(request):
     auth.logout(request)
-    return render(request, 'home.html')
+    return redirect("/home")
 
 
+@superuser_required
 def admin(request):
     return render(request, 'admin.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def adminlogin(req):
     if req.method == 'POST':
         username = req.POST['email']
@@ -74,10 +81,12 @@ def adminlogin(req):
     return render(req, 'adminlogin.html')
 
 
+@superuser_required
 def adminlogout(request):
     return render(request, 'adminlogin.html')
 
 
+@superuser_required
 def create_user(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -94,11 +103,13 @@ def create_user(request):
     return render(request, 'create_user.html')
 
 
+@superuser_required
 def display_user(request):
     users = User.objects.all()
     return render(request, 'display_user.html', {'users': users})
 
 
+@superuser_required
 def update_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -124,6 +135,7 @@ def update_user(request):
     return render(request, 'update_user.html')
 
 
+@superuser_required
 def delete_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -140,6 +152,7 @@ def delete_user(request):
     return render(request, 'delete_user.html')
 
 
+@superuser_required
 def add_category(request):
     if request.method == 'POST':
         category = request.POST['category']
@@ -151,6 +164,7 @@ def add_category(request):
     return render(request, 'add_category.html')
 
 
+@superuser_required
 def update_category(request):
     if request.method == 'POST':
         category = request.POST['category']
@@ -169,11 +183,13 @@ def update_category(request):
     return render(request, 'update_category.html')
 
 
+@superuser_required
 def display_category(request):
     category = Category.objects.all()
     return render(request, 'display_category.html', {'categories': category})
 
 
+@superuser_required
 def delete_category(request):
     if request.method == 'POST':
         category = request.POST['category']
@@ -190,6 +206,7 @@ def delete_category(request):
     return render(request, 'delete_category.html')
 
 
+@superuser_required
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -202,6 +219,7 @@ def add_product(request):
     return render(request, 'add_product.html', {'form': form})
 
 
+@superuser_required
 def delete_product(request):
     if request.method == 'POST':
         name = request.POST['product']
@@ -218,6 +236,7 @@ def delete_product(request):
     return render(request, 'delete_product.html')
 
 
+@superuser_required
 def update_product(request):
     if request.method == 'POST':
         prodname = request.POST['prodname']
@@ -246,10 +265,15 @@ def update_product(request):
     return render(request, 'update_product.html', {'categories': cat})
 
 
+@superuser_required
 def display_product(request):
     product = Product.objects.all()
     return render(request, 'display_product.html', {'products': product})
 
+
+@superuser_required
 def placed_orders(req):
     order = Order.objects.all()
-    return render(req,"placed_orders.html",{"orders":order})
+    orderedproduct = CartProduct.objects.all()
+    product = Product.objects.all()
+    return render(req, "placed_orders.html", {"orders": order, "orderedproducts": orderedproduct, "products": product})

@@ -51,7 +51,7 @@
              {% endfor %}
             <tr>
                 <th colspan="2" class="text-right">Total Price</th>
-                <th>Rs. {{ cart.total }}</th>
+                <th>$ {{ cart.total }}</th>
                 {% if cart.cartproduct_set.all %}
                     <th><a href="emptycart">Empty Cart</a></th>
                 {% endif %}

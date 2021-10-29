@@ -13,7 +13,7 @@ def home(request):
     product = Product.objects.all()
     return render(request, 'home.html', {'products': product})
 
-
+@login_required(login_url='/login')
 def profile(request):
     if request.method == 'POST':
         username = request.session['username']
@@ -38,7 +38,7 @@ def profile(request):
             return render(request, 'profile.html', {'fname': first_name, 'lname': last_name, 'email': email})
     return redirect('/home')
 
-
+@login_required(login_url='/login')
 def edit_profile(request):
     if request.method == 'POST':
         username = request.session['username']
