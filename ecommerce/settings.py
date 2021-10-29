@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,10 +79,10 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'DBecommerce',
-         'USER': 'postgres',
-         'PASSWORD': '1234',
-         'HOST':'localhost',
+         'NAME': 'd7eueg0fdg3aaq',
+         'USER': 'iiutskaerxrwsn',
+         'PASSWORD': '9a5a1fd560e3b9c72848b7dd624143d2202eea63b102973278b195a96c9de5c0',
+         'HOST':'ec2-44-199-158-170.compute-1.amazonaws.com',
      }
 }
 
