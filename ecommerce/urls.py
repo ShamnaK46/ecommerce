@@ -40,6 +40,7 @@ urlpatterns = [
     path("my-cart/checkout/", CheckoutView.as_view(), name="checkout"),
     path("paypalpay/", views.Paypalpay),
     path("paypalpay/success/", views.success),
+    path("orders/", views.orders),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
