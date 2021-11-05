@@ -197,6 +197,8 @@ class CheckoutView(CreateView):
 
     def form_valid(self, form):
         cart_id = self.request.session.get("cart_id")
+        username = self.request.session.get("username")
+        print(username)
         if cart_id:
             cart_obj = Cart.objects.get(id=cart_id)
             form.instance.cart = cart_obj
@@ -248,3 +250,12 @@ def productdetails(req):
         product = Product.objects.get(id=id)
         return render(req, "productdetails.html", {"product": product})
     return render(req, "productdetails.html")
+
+@login_required(login_url='/login')
+def orders(req):
+    username = req.session['username']
+    print(username)
+    orders = Order.objects.all().filter(u_id=username)
+    if orders is not None:
+        return render(req,"order_history.html",{"orders":orders})
+    return redirect("/home")
