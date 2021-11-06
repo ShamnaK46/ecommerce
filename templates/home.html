@@ -130,9 +130,9 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <li><a href="/orders"><span id="bttn" class="glyphicon glyphicon-log-out"></span> My Orders</a></li>
                         <li style="color: gainsboro"><a href="profile"> HELLO, {{ user.first_name }} </a></li>
                         <li style="color: gainsboro"><a href="my-cart"> CART </a></li>
+                     <li style="color: gainsboro"><a href="/orders">  My Orders </a></li>
                         <li><a href="logout"><span id="bttn" class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 
                     {% else %}
