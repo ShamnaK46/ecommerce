@@ -206,6 +206,7 @@ class CheckoutView(CreateView):
             form.instance.discount = 0
             form.instance.total = cart_obj.total
             form.instance.order_status = "Order Received"
+            form.instance.u_id = username
             total = cart_obj.total
             pm = form.cleaned_data.get("payment_method")
             if pm == "PayPal":
