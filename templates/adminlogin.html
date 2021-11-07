@@ -77,13 +77,13 @@
             $('.passtest').text("Password field must not be empty")
         } else {
             $.ajax({
-                url: '/login',
+                url: '/adminlogin',
                 method: 'POST',
                 data: data,
                 dataType: 'json',
                 success: (data) => {
                     if (data.success) {
-                        window.location.replace('/home')
+                        window.location.replace('/adminpage')
                     } else {
                         $('.credtest').text("Invalid Credentials")
                     }
