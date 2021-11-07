@@ -1,120 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce | delete user</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-    <title>eCommerce | Delete User</title>
+        header .header {
+            background-color: #fff;
+            height: 45px;
+        }
 
-     <style>
+        header a img {
+            width: 134px;
+            margin-top: 4px;
+        }
+
+        .login-page {
+            width: 360px;
+            padding: 8% 0 0;
+            margin: auto;
+        }
+
+        .login-page .form .login {
+            margin-top: -31px;
+            margin-bottom: 26px;
+        }
+
+        .form {
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .form input {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background-color: darkgrey;
+            background-image: linear-gradient(45deg, wheat, whitesmoke);
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+        }
+
+        .form .message {
+            margin: 15px 0 0;
+            color: gainsboro;
+            font-size: 12px;
+        }
+
+        .form .message a {
+            color: lightgoldenrodyellow;
+            text-decoration: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
         body {
-    font-family: "Lato", sans-serif;
-}
-
-
-
-.main-head{
-    height: 150px;
-    background: #FFF;
-
-}
-
-.sidenav {
-    height: 100%;
-    background-color: #000;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-}
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
-    }
-
-    .register-form{
-        margin-top: 10%;
-    }
-}
-
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%;
-    }
-
-    .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
-}
-
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-}
-
-.login-main-text h2{
-    font-weight: 300;
-}
-
-.btn-black{
-    background-color: #000 !important;
-    color: #fff;
-}
+            background-color: white;
+            background-image: linear-gradient(45deg, lightslategrey, whitesmoke);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
 </head>
+
 <body>
-
-
-<div class="sidenav">
-         <div class="login-main-text">
-            <h2>Application<br> Delete User</h2>
-            <p>Admin can delete user from here.</p>
-         </div>
-      </div>
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
-            <div class="register-form">
-                   {% csrf_token %}
-                   <div class="form-group">
-                     <label>Username</label>
-                     <input type="text" id="first_name"class="form-control usrn" placeholder="username"  required="required">
-                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
-
-                   </div>
-
-                  <button type="submit" id="bttn" class="btn btn-black" id="deleteuser" >Delete User</button>
+    <div class="login-page">
+        <div class="form">
+            <div class="login">
+                <div class="login-header">
+                    <h3>Delete User</h3>
+                </div>
             </div>
-
-    <div class="d-flex justify-content-around align-items-center mb-4">
-        <a href="display_user"> view users !!</a><br>
+            <form action="display_user" method="POST" class="login-form">
+                {% csrf_token %}
+                <input type="text" name='text' class="usrn" placeholder="enter username" />
+                <input type="button" name="" id="bttn" value="Delete User">
+            </form>
+             <div class="d-flex justify-content-around align-items-center mb-4">
+        <a href="display_user"> View Users !!</a><br>
     </div>
-         </div>
-      </div>
-
+          <div class="d-flex justify-content-around align-items-center mb-4">
+          <a href="adminpage"> Return to Home !!</a><br>
+    </div>
+        </div>
+    </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -136,7 +139,7 @@
             success: (data) => {
                 if (data.success) {
                     alert('deleted user')
-                    window.location.replace('/display_user')
+                    window.location.replace('/adminpage')
                 } else {
                     alert('Unable to delete')
                 }
@@ -145,4 +148,5 @@
 
     })
 </script>
+
 </html>

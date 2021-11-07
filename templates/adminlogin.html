@@ -1,119 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
     <style>
-        body {
-            font-family: "Lato", sans-serif;
-        }
-
-        .main-head {
-            height: 150px;
-            background: #FFF;
-
-        }
-
-        .sidenav {
-            height: 100%;
-            background-color: #000;
-            overflow-x: hidden;
-            padding-top: 20px;
-        }
-
-        .main {
-            padding: 0px 10px;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-            }
-        }
-
-        @media screen and (max-width: 450px) {
-            .login-form {
-                margin-top: 10%;
-            }
-
-            .register-form {
-                margin-top: 10%;
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .main {
-                margin-left: 40%;
-            }
-
-            .sidenav {
-                width: 40%;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-            }
-
-            .login-form {
-                margin-top: 80%;
-            }
-
-            .register-form {
-                margin-top: 20%;
-            }
-        }
-
-        .login-main-text {
-            margin-top: 20%;
-            padding: 60px;
-            color: #fff;
-        }
-
-        .login-main-text h2 {
-            font-weight: 300;
-        }
-
-        .btn-black {
-            background-color: #000 !important;
-            color: #fff;
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
         }
     </style>
-    <title>Admin Login</title>
 </head>
+
 <body>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <form>
+                        {% csrf_token %}
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" id="form1Example13" name="email"
+                                class="form-control form-control-lg email" />
+                            <label class="form-label" for="form1Example13">Email address</label>
+                            <p class="emailtest" style="font-weight: bold;color: red;"></p>
+                        </div>
 
-<div class="sidenav">
-    <div class="login-main-text">
-        <h2>Application<br> Admin Login Page</h2>
-        <p>Login or register from here to access.</p>
-    </div>
-</div>
-<div class="main">
-    <div class="col-md-6 col-sm-12">
-        <div class="login-form">
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <input type="password" id="form1Example23" name="password"
+                                class="form-control form-control-lg password" />
+                            <label class="form-label" for="form1Example23">Password</label>
+                            <p class="passtest" style="font-weight: bold;color: red;"></p>
+                        </div>
 
-                {% csrf_token %}
-                <div class="form-group">
-                    <label>User Name</label>
-                    <input type="text" class="form-control" placeholder="User Name" id="email" required="required">
+
+                        <!-- Submit button -->
+                        <button type="button" id="bttn" class="btn btn-dark btn-lg btn-block">Login</button>
+                        <br>
+                        <p class="credtest" style="font-weight: bold;color: red;"></p>
+
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" id="password" required="required">
-                </div>
-                <button id="bttnlogin" class="btn btn-black">Login</button>
+            </div>
         </div>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </section>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $('#bttnlogin').click(() => {
-        console.log('clicked')
-        var email = $('#email').val()
-        var password = $('#password').val()
+    $('#bttn').click(() => {
+        $('.emailtest').text("")
+        $('.passtest').text("")
+        var email = $('.email').val()
+        var password = $('.password').val()
         var data = {
             'csrfmiddlewaretoken': '{{csrf_token}}',
             'email': email,
@@ -121,23 +69,23 @@
         }
 
         if (email == '' && password == '') {
-            alert.text("Email and pss field must not be empty")
-
+            $('.emailtest').text("Email field must not be empty")
+            $('.passtest').text("Password field must not be empty")
         } else if (email == '') {
-            alert("Email field must not be empty")
+            $('.emailtest').text("Email field must not be empty")
         } else if (password == '') {
-            alert("Password field must not be empty")
+            $('.passtest').text("Password field must not be empty")
         } else {
             $.ajax({
-                url: '/adminlogin',
+                url: '/login',
                 method: 'POST',
                 data: data,
                 dataType: 'json',
                 success: (data) => {
                     if (data.success) {
-                        window.location.replace('/adminpage')
+                        window.location.replace('/home')
                     } else {
-                        alert("Invalid Credentials")
+                        $('.credtest').text("Invalid Credentials")
                     }
                 }
             })

@@ -1,143 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<title>eCommerce | Create User</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+		integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-    <title>eCommerce | Create User</title>
+        header .header {
+            background-color: #fff;
+            height: 45px;
+        }
 
-     <style>
+        header a img {
+            width: 134px;
+            margin-top: 4px;
+        }
+
+        .login-page {
+            width: 360px;
+            padding: 8% 0 0;
+            margin: auto;
+        }
+
+        .login-page .form .login {
+            margin-top: -31px;
+            margin-bottom: 26px;
+        }
+
+        .form {
+            position: relative;
+            z-index: 1;
+            background: whitesmoke;
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .form input {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: snow;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background-color: darkgrey;
+            background-image: linear-gradient(45deg, wheat, whitesmoke);
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+        }
+
+        .form .message {
+            margin: 15px 0 0;
+            color: gainsboro;
+            font-size: 12px;
+        }
+
+        .form .message a {
+            color: lightgoldenrodyellow;
+            text-decoration: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
         body {
-    font-family: "Lato", sans-serif;
-}
-
-
-
-.main-head{
-    height: 150px;
-    background: #FFF;
-
-}
-
-.sidenav {
-    height: 100%;
-    background-color: #000;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-}
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
-    }
-
-    .register-form{
-        margin-top: 10%;
-    }
-}
-
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%;
-    }
-
-    .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
-}
-
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-}
-
-.login-main-text h2{
-    font-weight: 300;
-}
-
-.btn-black{
-    background-color: #000 !important;
-    color: #fff;
-}
+            background-color: white;
+            background-image: linear-gradient(45deg, lightslategrey, whitesmoke);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
 </head>
+
 <body>
-
-
-<div class="sidenav">
-         <div class="login-main-text">
-            <h2>Application<br> Create User</h2>
-            <p>Admin can create user from here to give access.</p>
-         </div>
-      </div>
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
-            <div class="register-form">
-                   {% csrf_token %}
-                   <div class="form-group">
-                     <label>First Name</label>
-                     <input type="text" id="first_name"class="form-control" placeholder="First Name"  required="required">
-                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
-
-                   </div>
-                   <div class="form-group">
-                     <label>Last Name</label>
-                     <input type="text" id="last_name"class="form-control" placeholder="Last Name"  required="required">
-                       						<p class="firsttest" style="font-weight: bold;color: red;"></p>
-
-                   </div>
-                   <div class="form-group">
-                     <label>Email</label>
-                     <input type="email" id="email" class="form-control" placeholder="Email"  required="required">
-                       				<p class="emailtest" style="font-weight: bold;color: red;"></p>
-
-                  </div>
-                  <div class="form-group">
-                     <label>Password</label>
-                     <input type="password" id="password"class="form-control" placeholder="Password"  required="required">
-                  				<p class="passtest" style="font-weight: bold;color: red;"></p>
-
-                  </div>
-                    <div class="form-group">
-                     <label>Repeat Password</label>
-                     <input type="password" id="cpassword"class="form-control" placeholder="Repeat Password"  required="required">
-                 <p class="conftest" style="font-weight: bold;color: red;"></p>
-                  </div>
-
-                  <button type="submit" id="bttn" class="btn btn-black" id="createuser" >Create User</button>
+<div class="login-page">
+        <div class="form">
+	<div class="signup-form">
+		<form action="/examples/actions/confirmation.php" method="post">
+			{% csrf_token %}
+            <div class="login">
+                <div class="login-header">
+                    <h3><u>ADD USER</u></h3>
+                </div>
             </div>
+			<hr>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-6"><input type="text" class="form-control first_name" name="first_name"
+							placeholder="First Name" required="required">
+						<p class="firsttest" style="font-weight: bold;color: red;"></p>
+					</div>
 
-    <div class="d-flex justify-content-around align-items-center mb-4">
-                      <a href="adminpage"> Create later, Return to Home !!</a><br>
-                    </div>
-         </div>
-      </div>
-
+					<div class="col-xs-6"><input type="text" class="form-control last_name" name="last_name"
+							placeholder="Last Name" required="required"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control email" name="email" placeholder="Email" required="required">
+				<p class="emailtest" style="font-weight: bold;color: red;"></p>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control password" name="password" placeholder="Password"
+					required="required">
+				<p class="passtest" style="font-weight: bold;color: red;"></p>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control confirm_password" name="confirm_password"
+					placeholder="Confirm Password" required="required">
+				<p class="conftest" style="font-weight: bold;color: red;"></p>
+			</div>
+			<div class="form-group">
+			</div>
+			<div class="form-group">
+				<button type="button" id="bttn" class="btn btn-primary btn-lg">create user</button>
+			</div>
+		</form>
+         <div class="d-flex justify-content-around align-items-center mb-4">
+        <a href="display_user"> View Users !!</a><br>
+    </div>
+          <div class="d-flex justify-content-around align-items-center mb-4">
+          <a href="adminpage"> Return to Home !!</a><br>
+    </div>
+	</div>
+        </div>
+</div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -156,11 +174,11 @@
 		$('.emailtest').text("")
 		$('.passtest').text("")
 		$('.conftest').text("")
-		var first_name = $('#first_name').val()
-		var last_name = $('#last_name').val()
-		var email = $('#email').val()
-		var password = $('#password').val()
-		var confirm_password = $('#cpassword').val()
+		var first_name = $('.first_name').val()
+		var last_name = $('.last_name').val()
+		var email = $('.email').val()
+		var password = $('.password').val()
+		var confirm_password = $('.confirm_password').val()
 		var data = {
 			'csrfmiddlewaretoken': '{{csrf_token}}',
 			'email': email,
@@ -170,7 +188,7 @@
 		}
 		console.log(first_name)
 		if (first_name == '') {
-			$('.firsttest').text("name field must not be empty")
+			$('.firsttest').text("First name field must not be empty")
 		} else if (email == '') {
 			$('.emailtest').text("Email field must not be empty")
 		} else if (password == '') {
@@ -189,11 +207,12 @@
 				success: (data) => {
 					if (data.success) {
 						alert('user created')
-						window.location.replace('/display_user')
+						window.location.replace('/adminpage')
 					}
 				}
 			})
 		}
 	})
 </script>
+
 </html>
