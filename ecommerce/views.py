@@ -209,8 +209,13 @@ class CheckoutView(CreateView):
             form.instance.u_id = username
             total = cart_obj.total
             pm = form.cleaned_data.get("payment_method")
+            
+            self.request.session["ordered_by"] = form.cleaned_data["ordered_by"]
+            self.request.session['shipping_address'] = form.cleaned_data['shipping_address']
+            self.request.session['mobile'] = form.cleaned_data['mobile']
+            self.request.session['payment_method'] = form.cleaned_data['payment_method']
+            self.request.session['femail'] = form.cleaned_data['email']
             if pm == "PayPal":
-                form.save()
                 return redirect("/paypalpay")
             del self.request.session['cart_id']
             form.save()
@@ -235,6 +240,29 @@ def Paypalpay(req):
 @login_required(login_url='/login')
 def success(req):
     del req.session['cart_id']
+    
+    username = req.session.get("username")
+    ordered_by = req.session.get("ordered_by")
+    shipping_address = req.session.get("shipping_address")
+    mobile = req.session.get("mobile")
+    payment_method = req.session.get("payment_method")
+    femail = req.session.get("femail")
+    if cart_id:
+        cart_obj = Cart.objects.get(id=cart_id)
+    o = Order.objects.create(
+        cart=cart_obj,
+        subtotal=cart_obj.total,
+        discount=0,
+        total=cart_obj.total,
+        order_status="Order Received",
+        u_id=username,
+        ordered_by=ordered_by,
+        shipping_address=shipping_address,
+        mobile=mobile,
+        payment_method=payment_method,
+        email=femail
+    )
+    o.save()
     return redirect("/home")
 
 
