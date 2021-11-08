@@ -239,7 +239,7 @@ def Paypalpay(req):
 
 @login_required(login_url='/login')
 def success(req):
-    del req.session['cart_id']
+    cart_id = req.session.get("cart_id")
     
     username = req.session.get("username")
     ordered_by = req.session.get("ordered_by")
@@ -263,6 +263,7 @@ def success(req):
         email=femail
     )
     o.save()
+    del req.session['cart_id']
     return redirect("/home")
 
 
